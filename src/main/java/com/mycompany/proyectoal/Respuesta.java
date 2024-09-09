@@ -55,37 +55,51 @@ public class Respuesta {
         String[] lexemas;
         String[] variableyasignacion = lexema.split("=");
         String nombre_variable;
+        int espacio = 0;
         int valor;
         float valor_decimal;
+
+        for (int i = 0 ; i < lexema.length(); i++) {
+
+            if(lexema.charAt(i) == ' '){
+                espacio++;
+            }
+        }
+
+        if(espacio < 3){
+            this.bandera = false;
+            throw new IllegalArgumentException ("Error: Declaración incompleta o mal redactada");
+        }
+
         variableyasignacion[1] = variableyasignacion[1].replace(";", "");
         variableyasignacion[1] = variableyasignacion[1].trim();
         lexemas = variableyasignacion[0].replace("%", "").split(" ");
         this.tipo_dato = lexemas[0];
         nombre_variable = lexemas[1];
+
+
+
+
         if(lexemas[1].matches("[a-z]+")){
             this.nombre_variable = nombre_variable;
         }
         if (variableyasignacion[1].matches("[0-9]+")) {
             valor = Integer.parseInt(variableyasignacion[1].trim());
             this.resultado_entero = valor;
-            System.out.println(valor);
         }
         if (variableyasignacion[1].matches("[0-9]+.[0-9]+")) {
             valor_decimal = Integer.parseInt(variableyasignacion[1].trim());
             this.resultado_decimal = valor_decimal;
-            System.out.println(valor_decimal);
         }
 
         if (variableyasignacion[1].matches("[a-z]+\\s*[+\\-*/]\\s*[a-z]+") && tipo_dato.equals("int")) {
             this.esAritmeticoVariable = true;
             this.variables_enteras = variableyasignacion[1];
-            System.out.println(variableyasignacion[1]);
         }
 
         if (variableyasignacion[1].matches("[a-z]+\\s*[+\\-*/]\\s*[a-z]+") && tipo_dato.equals("float")) {
             this.esAritmeticoVariable = true;
             this.variables_decimales = variableyasignacion[1];
-            System.out.println(variableyasignacion[1]);
         }
 
 

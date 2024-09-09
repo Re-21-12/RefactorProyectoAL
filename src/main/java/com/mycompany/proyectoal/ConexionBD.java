@@ -6,14 +6,18 @@ import java.sql.SQLException;
 
 public class ConexionBD {
 
-    private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=yourDatabase"; // Cambia localhost y el nombre de la base de datos
-    private static final String USER = "yourUsername";  // Usuario de la base de datos
-    private static final String PASSWORD = "yourPassword";  // Contraseña de la base de datos
+    private static final String URL = "jdbc:sqlserver://127.0.0.1:1434;databaseName=proyecto;encrypt=false"; // Cambia localhost y el nombre de la base de datos
+    private static final String USER = "Automatas";  // Usuario de la base de datos
+    private static final String PASSWORD = "lenguajes";  // Contraseña de la base de datos
+    public ConexionBD() {
+    }
 
     private static Connection connection = null;
 
+
+
     // Método estático para obtener la conexión
-    public static Connection getConnection() {
+    public static Connection getConnection() throws SQLException{
         if (connection == null) {
             try {
                 // Cargar el driver de SQL Server
@@ -34,14 +38,7 @@ public class ConexionBD {
     // Método para cerrar la conexión
     public static void closeConnection() {
         if (connection != null) {
-            try {
-                connection.close();
-                connection = null;
-                System.out.println("Conexión cerrada correctamente");
-            } catch (SQLException e) {
-                System.out.println("Error al cerrar la conexión");
-                e.printStackTrace();
-            }
+
         }
     }
 }

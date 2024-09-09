@@ -128,11 +128,12 @@ public class Validacion {
         while (!operadores.isEmpty()) {
             expresionPostfija.add(operadores.pop());
         }
-        System.out.println("Expresion PostOrden [I-D-R]");
+        /*System.out.println("Expresion PostOrden [I-D-R]");
         for (String expresiones : expresionPostfija) {
             System.out.print(expresiones + " ");
         }
         System.out.println();
+        */
         return expresionPostfija;
     }
 

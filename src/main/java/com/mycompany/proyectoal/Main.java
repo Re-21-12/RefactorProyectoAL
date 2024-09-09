@@ -8,8 +8,9 @@ package com.mycompany.proyectoal;
  *
  * @author victo
  */
-
+import java.sql.*;
 import java.util.ArrayList;
+
 
 //TODO:
 // 1. Volver private las funciones en Lenguaje.java
@@ -17,30 +18,34 @@ import java.util.ArrayList;
 // 3. Ver division
 // 4. No se esta CONTEMPLANDO EL CASO DE ASIGNACION DE VARIABLE EN UNA DECLARACION YA EXISTENTE
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
+        ConexionBD ConexionBD = new ConexionBD() {
+        };
+        Connection connection = ConexionBD.getConnection();
+        MostrarDescripcion mostrarDescripcion = new MostrarDescripcion();
+
         ArrayList<String> declaraciones = new ArrayList<>();
         ArrayList<Respuesta> declaraciones_mapeadas = new ArrayList<>();
-        //String Lenguaje_prueba1 = "%int variableuno = 1;";
-        //String Lenguaje_prueba2 = "%int variabledos = 2;";
-        //String respuesta = "%int respuesta = variableuno + variabledos;";
+        String Lenguaje_prueba1 = "%int variableuno = 1;";
+        String Lenguaje_prueba2 = "%int variabledos = 2;";
+        //String MalEjemplo = "%intvariableuno=1 + 2;";
+        String respuesta = "%int respuesta = variableuno + variabledos;";
 
 
 
-        String respuesta = "%int respuesta = 1 + 2;";
+        //String respuesta = "%int respuesta = 1 + 2;";
 
-        //declaraciones.add(Lenguaje_prueba1);
-        //declaraciones.add(Lenguaje_prueba2);
+        declaraciones.add(Lenguaje_prueba1);
+        declaraciones.add(Lenguaje_prueba2);
         declaraciones.add(respuesta);
+        Lenguaje prueba = new Lenguaje();
 
         for (String declaracion : declaraciones) {
-
+            prueba.esUnaDeclaracionValida(declaracion);
             declaraciones_mapeadas.add(new Respuesta().filtrarDatos(declaracion));
+
         }
 
-        for(Respuesta declaracion:declaraciones_mapeadas) {
-            System.out.println("Mapeada: "+ declaracion);
-        }
-        Lenguaje prueba = new Lenguaje();
         //Lenguaje Lenguaje1 = new Lenguaje(Lenguaje_prueba1);
         //Lenguaje Lenguaje2 = new Lenguaje(Lenguaje_prueba2);
 
@@ -57,5 +62,9 @@ public class Main {
             System.out.println(res);
 */
         resultado.esUnLenguajeValido(declaraciones_mapeadas);
+        System.out.printf("%-15s %-15s %-50s\n", "Simbolo", "Tipo", "Descripcion");
+        mostrarDescripcion.indicarDescripciones(declaraciones);
+
+        connection.close();
     }
 }
