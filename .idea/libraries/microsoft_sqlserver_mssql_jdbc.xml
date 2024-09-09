@@ -1,6 +1,9 @@
 <component name="libraryTable">
   <library name="microsoft.sqlserver.mssql.jdbc" type="repository">
     <properties maven-id="com.microsoft.sqlserver:mssql-jdbc:11.2.3.jre8" />
+    <ANNOTATIONS>
+      <root url="file://$PROJECT_DIR$/../../openjfx-22.0.2_windows-x64_bin-sdk/javafx-sdk-22.0.2/lib" />
+    </ANNOTATIONS>
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/microsoft/sqlserver/mssql-jdbc/11.2.3.jre8/mssql-jdbc-11.2.3.jre8.jar!/" />
     </CLASSES>

@@ -17,5 +17,10 @@
             <artifactId>mssql-jdbc</artifactId>
             <version>11.2.3.jre8</version> <!-- Usa la última versión disponible -->
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>22.0.2</version> <!-- Usa la última versión disponible -->
+        </dependency>
     </dependencies>
 </project>
