@@ -8,12 +8,12 @@ import java.util.Stack;
 
 public class Lenguaje {
     protected String[] tipos_datos = {"int", "bool", "string"};
-    protected String alfanumericos = "[a-z0-9]+";
+    protected String alfanumericos = "\"[a-z0-9]+\"";
     protected String[] operadores = {"=", "+", "-", "*", "/"};
     protected String letras = "[a-z]+";
     protected String numeros = "[0-9]+";
     protected String variableregex = "^%int\\s+[a-z]+\\s*=\\s*[a-z]+\\s*([+\\-*/]\\s*[a-z]+)*\\s*;$";
-    protected String numerosoperandos = "^%int [a-z]+ = [0-9]+( [\\+\\-\\*/] [0-9]+)*;$";
+    //protected String numerosoperandos = "^%int [a-z]+ = [0-9]+( [\\+\\-\\*/] [0-9]+)*;$";
     protected String numerosvariables = "[a-z0-9]";
     protected String texto;
     protected ArrayList<String> declaraciones = new ArrayList<>();
@@ -27,6 +27,11 @@ public class Lenguaje {
         String variableConNumeros;
         String resultado;
         if (declaraciones.size() == 1) {
+
+            if(declaraciones.get(0).getTipo_dato().equals("string")){
+                System.out.println("El lenguaje es válido");
+                return;
+            }
             try {
                 // Ejecutas la operación
                 resultado = operarAsignacion(declaraciones.get(0).getLexema());
@@ -35,13 +40,13 @@ public class Lenguaje {
                 throw new RuntimeException("No es posible la asginacion de variables: ");
             }
 
-            System.out.println("El resultado de operar declaraciones con variables es: " + resultado);
+            System.out.println("El resultado de operar declaraciones con variables es: " + resultado + ";");
             System.out.println("El lenguaje es válido");
         }
 
         if (declaraciones.size() > 1) {
             resultado = operarAsignacion(extraerValoresDeclaraciones(declaraciones));
-            System.out.println("El resultado de operar declaraciones con variables es: " + resultado);
+            System.out.println("El resultado de operar declaraciones con variables es: " + resultado + ";");
             System.out.println("El lenguaje es válido");
         }
 
@@ -79,7 +84,7 @@ public class Lenguaje {
 
                     throw new IllegalArgumentException("Error: Debe haber declarado como minimo dos variables con numeros");
                 }
-                System.out.println("Variable a reemplazar: " + declaracion.getLexema());
+                System.out.println("Variable a reemplazar1: " + declaracion.getLexema());
                 variableRespuesta.append(declaracion.getLexema()).append(" ");
 
             }
@@ -107,7 +112,7 @@ public class Lenguaje {
             }
 
             if (asignacion.contains(declaracion.getNombre_variable())) {
-                System.out.println("Variable a reemplazar: " + declaracion.getNombre_variable());
+                System.out.println("Variable a reemplazar2: " + declaracion.getNombre_variable());
                 asignacion = asignacion.replace(declaracion.getNombre_variable(), String.valueOf(declaracion.getResultado_entero()));
             }
         }
@@ -213,8 +218,14 @@ public class Lenguaje {
         }
         //si el tipo de dato es string valida que sea alfanumerico
         if (tipo_dato.equalsIgnoreCase(tipos_datos[2])) {
-            if (!valor.matches(alfanumericos)) {
-                throw new IllegalArgumentException("Error: El valor no es alfanumérico válido");
+            if (!valor.startsWith("\"") || !valor.endsWith("\""))
+                throw new IllegalArgumentException("Error: El valor no es un string válido debe comenzar y terminar con comillas dobles");
+        }
+
+        if (tipo_dato.equalsIgnoreCase(tipos_datos[2])) {
+
+            if (!valor.matches(alfanumericos) && !valor.matches(letras) && !valor.matches(numeros)) {
+                throw new IllegalArgumentException("Error: El valor no es alfanumérico válido" + valor);
             }
 
         }
