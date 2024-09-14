@@ -49,7 +49,6 @@ public class Respuesta {
         this.resultado_decimal = resultado_decimal;
     }
 
-    //%int variableuno = 1;";
     public Respuesta filtrarDatos(String lexema) {
         this.lexema = lexema;
         String[] lexemas;
@@ -84,15 +83,25 @@ public class Respuesta {
             this.nombre_variable = nombre_variable;
         }
         if (variableyasignacion[1].matches("[0-9]+")) {
+            try {
             valor = Integer.parseInt(variableyasignacion[1].trim());
             this.resultado_entero = valor;
+            }catch (IllegalArgumentException e){
+                this.bandera = false;
+                throw new IllegalArgumentException ("Error: Debe haber como minimo un espacio entre los operandos y el operador");
+            }
         }
         if (variableyasignacion[1].matches("[0-9]+.[0-9]+")) {
-            valor_decimal = Integer.parseInt(variableyasignacion[1].trim());
+            try {
+            valor_decimal = Float.parseFloat(variableyasignacion[1].trim());
             this.resultado_decimal = valor_decimal;
+            }catch (IllegalArgumentException e){
+                this.bandera = false;
+                throw new IllegalArgumentException ("Error: Debe haber como minimo un espacio entre los operandos y el operador");
+            }
         }
 
-        if (variableyasignacion[1].matches("[a-z]+\\s*[+\\-*/]\\s*[a-z]+") && tipo_dato.equals("int")) {
+        if (variableyasignacion[1].matches("[a-z]+\\s*[+\\-*/]\\s*[a-z]+") && tipo_dato.equals("number")) {
             this.esAritmeticoVariable = true;
             this.variables_enteras = variableyasignacion[1];
         }

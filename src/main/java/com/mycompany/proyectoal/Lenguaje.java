@@ -7,13 +7,13 @@ import java.util.Arrays;
 import java.util.Stack;
 
 public class Lenguaje {
-    protected String[] tipos_datos = {"int", "bool", "string"};
+    protected String[] tipos_datos = {"number", "bool", "string"};
     protected String alfanumericos = "\"[a-z0-9]+\"";
     protected String[] operadores = {"=", "+", "-", "*", "/"};
     protected String letras = "[a-z]+";
     protected String numeros = "[0-9]+";
-    protected String variableregex = "^%int\\s+[a-z]+\\s*=\\s*[a-z]+\\s*([+\\-*/]\\s*[a-z]+)*\\s*;$";
-    //protected String numerosoperandos = "^%int [a-z]+ = [0-9]+( [\\+\\-\\*/] [0-9]+)*;$";
+    protected String variableregex = "^%number\\s+[a-z]+\\s*=\\s*[a-z]+\\s*([+\\-*/]\\s*[a-z]+)*\\s*;$";
+    //protected String numerosoperandos = "^%number [a-z]+ = [0-9]+( [\\+\\-\\*/] [0-9]+)*;$";
     protected String numerosvariables = "[a-z0-9]";
     protected String texto;
     protected ArrayList<String> declaraciones = new ArrayList<>();
@@ -195,7 +195,7 @@ public class Lenguaje {
 
     private Respuesta esUnValorValido(String tipo_dato, String valor) {
         Respuesta respuesta = new Respuesta(false);
-        //Si el tipo de dato es int
+        //Si el tipo de dato es number
         if (tipo_dato.equalsIgnoreCase(tipos_datos[0])) {
             //Si el valor no es un número pero si una variable que contiene numeros no permitidos
 
@@ -231,7 +231,7 @@ public class Lenguaje {
         }
         respuesta.setBandera(true);
         respuesta.setTipo_dato(tipo_dato);
-        //En el caso de que no sea int pero si cualaquier tipo de dato
+        //En el caso de que no sea number pero si cualaquier tipo de dato
         System.out.println("El valor es válido");
         return respuesta;
     }
