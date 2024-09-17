@@ -1,4 +1,5 @@
 # SCRIPT BD
+```
 -- create database proyecto
 USE proyecto;
 
@@ -94,3 +95,4 @@ VALUES
 SELECT Simbolo, Tipo, Descripcion 
 FROM Alfabeto 
 WHERE Simbolo LIKE '1';
+```
